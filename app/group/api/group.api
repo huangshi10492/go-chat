@@ -1,0 +1,112 @@
+type (
+	// 创建群
+	CreateGroupRequest {
+		Name string `json:"name"`
+	}
+	CreateGroupResponse {
+		Id   int64  `json:"id"`
+		Name string `json:"name"`
+	}
+	// 创建群
+
+	// 加入群
+	JoinGroupRequest {
+		GroupId int64 `json:"groupId"`
+	}
+	// 加入群
+
+	// 加入的群列表
+	GetJoinListResponse {
+		GroupList []GroupList `json:"groupList"`
+	}
+	GroupList {
+		Id     int64  `json:"id"`
+		Name   string `json:"name"`
+		Remark string `json:"remark"`
+	}
+	// 加入的群列表
+
+	// 群成员列表
+	GetGroupMemberListRequest {
+		GroupId int64 `json:"groupId"`
+	}
+	GetGroupMemberListResponse {
+		MemberList []GroupMemberList `json:"groupMemberList"`
+	}
+	GroupMemberList {
+		UserId     int64  `json:"userId"`
+		Name       string `json:"name"`
+		Permission int64  `json:"permission"`
+	}
+	// 群成员列表
+
+	// 退出群
+	QuitGroupRequest {
+		MemberId int64 `json:"memberId"`
+		GroupId  int64 `json:"groupId"`
+		OwnerId  int64 `json:"ownerId"`
+	}
+	// 退出群
+
+	// 设置群成员权限
+	SetGroupMemberPermissionRequest {
+		GroupId    int64 `json:"groupId"`
+		MemberId   int64 `json:"memberId"`
+		Permission int64 `json:"permission"`
+	}
+	// 设置群成员权限
+
+	// 修改备注
+	ModifyRemarkRequest {
+		GroupId int64  `json:"groupId"`
+		Remark  string `json:"remark"`
+	}
+	// 修改备注
+
+	// 解散群
+	DissolveGroupRequest {
+		GroupId int64 `json:"groupId"`
+	}
+	// 解散群
+
+	// 获取群信息
+	GetGroupInfoRequest {
+		GroupId int64 `json:"groupId"`
+	}
+	GetGroupInfoResponse {
+		Id   int64  `json:"id"`
+		Name string `json:"name"`
+	}
+	// 获取群信息
+)
+@server (
+	jwt:Auth
+)
+service Group{
+	@handler CreateGroup
+	post /group/create(CreateGroupRequest) returns(CreateGroupResponse);
+
+	@handler JoinGroup
+	post /group/join(JoinGroupRequest) returns();
+
+	@handler GetJoinGroupList
+	post /group/getJoinGroupList() returns(GetJoinListResponse);
+
+	@handler GetGroupMemberList
+	post /group/getGroupMemberList(GetGroupMemberListRequest) returns(GetGroupMemberListResponse);
+
+	@handler QuitGroup
+	post /group/quit(QuitGroupRequest) returns();
+
+	@handler SetGroupMemberPermission
+	post /group/setGroupMemberPermission(SetGroupMemberPermissionRequest) returns();
+
+	@handler ModifyRemark
+	post /group/modifyRemark(ModifyRemarkRequest) returns();
+
+	@handler DissolveGroup
+	post /group/dissolveGroup(DissolveGroupRequest) returns();
+
+	@handler GetGroupInfo
+	post /group/getGroupInfo(GetGroupInfoRequest) returns(GetGroupInfoResponse);
+}

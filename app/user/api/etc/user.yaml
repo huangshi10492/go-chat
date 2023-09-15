@@ -1,0 +1,13 @@
+Name: User
+Host: 0.0.0.0
+Port: 3001
+
+Auth:
+  AccessSecret: "1234567890"
+  AccessExpire: 86400
+
+UserRpc:
+  Etcd:
+    Hosts:
+     - 192.168.19.133:2379
+    Key: user.rpc

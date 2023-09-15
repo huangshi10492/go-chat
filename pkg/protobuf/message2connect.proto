@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package protobuf;
+
+option go_package = "./mq_pb";
+
+message Notify{
+  int32 NotifyType = 1; //1:消息 2:已读 3:撤回
+  repeated Mailbox MailBox = 2;
+  Message Message = 3;
+  NotifyCommon Common = 4;
+}
+message Mailbox{
+  int64 ReceiverId = 1;
+  int64 Seq = 2;
+}
+message Message{
+  string ID = 1;
+  int64 GroupId = 2;
+  int32 MessageType = 3;
+  string MessageData = 4;
+}
+message NotifyCommon{
+  int64 SenderId = 1;
+  int32 ContentType = 2;
+  string Content = 3;
+  int64 CreateAt = 4;
+  int64 ClientId=5;
+}

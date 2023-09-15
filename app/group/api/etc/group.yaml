@@ -1,0 +1,13 @@
+Name: Group
+Host: 0.0.0.0
+Port: 3003
+
+Auth:
+  AccessSecret: "1234567890"
+  AccessExpire: 86400
+
+GroupRpc:
+  Etcd:
+    Hosts:
+    - 192.168.19.133:2379
+    Key: group.rpc

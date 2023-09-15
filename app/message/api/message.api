@@ -1,0 +1,39 @@
+type (
+	// 发送消息
+	SendMessageReq {
+		SenderType  int32  `json:"senderType"`
+		GroupId     int64  `json:"groupId"`
+		ReceiverId  int64  `json:"receiverId"`
+		ContentType int32  `json:"contentType"`
+		Content     string `json:"content"`
+		ClientId    int64  `json:"clientId"`
+	}
+	// 发送消息
+
+	// 发送已读
+	ReadReq {
+		MessageId string `json:"messageId"`
+		ClientId  int64  `json:"clientId"`
+	}
+	// 发送已读
+
+	// 撤回消息
+	WithdrawReq {
+		SenderType int32  `json:"senderType"`
+		GroupId    int64  `json:"groupId"`
+		ReceiverId int64  `json:"receiverId"`
+		MessageId  string `json:"messageId"`
+		ClientId   int64  `json:"clientId"`
+	}
+)
+@server (
+	jwt :Auth
+)
+service Message{
+	@handler SendMessage
+	post /message/sendMessage (SendMessageReq) returns ();
+	@handler Read
+	post /message/read (ReadReq) returns ();
+	@handler Withdraw
+	post /message/withdraw (WithdrawReq) returns ();
+}

@@ -1,0 +1,65 @@
+type (
+	// 发送好友请求
+	SendFriendReq {
+		FriendId int64  `json:"friendId"`
+		Reason   string `json:"reason"`
+		Remark   string `json:"remark"`
+	}
+	// 同意好友请求
+	AgreeFriendReq {
+		RequestId int64  `json:"requestId"`
+		Remark    string `json:"remark"`
+		Agree     bool   `json:"agree"`
+	}
+	// 修改好友备注
+	ModifyFriendRemarkReq {
+		FriendId int64  `json:"friendId"`
+		Remark   string `json:"remark"`
+	}
+	// 删除好友
+	DeleteFriendReq {
+		FriendId int64 `json:"friendId"`
+	}
+	// 获取好友列表
+	GetFriendListResp {
+		FriendList []FriendInfo `json:"friendList"`
+	}
+	FriendInfo {
+		FriendId int64  `json:"friendId"`
+		Name     string `json:"name"`
+		Remark   string `json:"remark"`
+	}
+	// 获取好友请求列表
+	GetFriendRequestListResp {
+		FriendRequestList []FriendRequestInfo `json:"friendRequestList"`
+	}
+	FriendRequestInfo {
+		RequestId int64  `json:"requestId"`
+		FriendId  int64  `json:"friendId"`
+		Name      string `json:"name"`
+		Reason    string `json:"reason"`
+		Status    int64  `json:"status"`
+	}
+)
+@server (
+	jwt:Auth
+)
+service Friend{
+	@handler SendFriend
+	post /friend/send(SendFriendReq) returns();
+
+	@handler AgreeFriend
+	post /friend/agree(AgreeFriendReq) returns();
+
+	@handler ModifyFriendRemark
+	post /friend/modifyRemark(ModifyFriendRemarkReq) returns();
+
+	@handler DeleteFriend
+	post /friend/delete(DeleteFriendReq) returns();
+
+	@handler GetFriendList
+	get /friend/get() returns(GetFriendListResp);
+
+	@handler GetFriendRequestList
+	get /friend/getRequset() returns(GetFriendRequestListResp);
+}

@@ -1,0 +1,108 @@
+syntax = "proto3";
+
+package group;
+
+option go_package = "./group";
+
+// 创建群
+message CreateGroupRequest {
+  string Name = 1;
+  int64 UserId = 2;
+}
+message CreateGroupResponse {
+  int64 Id = 1;
+  string Name = 2;
+}
+// 创建群
+
+// 加入群
+message JoinGroupRequest {
+  int64 GroupId = 1;
+  int64 UserId = 2;
+}
+// 加入群
+
+// 加入的群列表
+message GetJoinListRequest {
+  int64 UserId = 1;
+}
+message GetJoinListResponse {
+  repeated GroupList GroupList = 1;
+}
+message GroupList {
+  int64 Id = 1;
+  string Name = 2;
+  string Remark = 3;
+}
+// 加入的群列表
+
+// 群成员列表
+message GetGroupMemberListRequest {
+  int64 GroupId = 1;
+}
+message GetGroupMemberListResponse {
+  repeated GroupMemberList MemberList = 1;
+}
+message GroupMemberList {
+  int64 UserId = 1;
+  string Name = 2;
+  int64 Permission = 3;
+}
+// 群成员列表
+
+// 退出群
+message QuitGroupRequest {
+  int64 MemberId = 1;
+  int64 GroupId = 2;
+  int64 OwnerId = 3;
+  int64 UserId = 4;
+}
+// 退出群
+
+// 设置群成员权限
+message SetGroupMemberPermissionRequest {
+  int64 GroupId = 1;
+  int64 MemberId = 2;
+  int64 Permission = 3;
+  int64 UserId = 4;
+}
+// 设置群成员权限
+
+// 修改备注
+message ModifyRemarkRequest {
+  int64 GroupId = 1;
+  string Remark = 2;
+  int64 UserId = 3;
+}
+// 修改备注
+
+// 解散群
+message DissolveGroupRequest {
+  int64 GroupId = 1;
+  int64 UserId = 2;
+}
+// 解散群
+
+// 获取群信息
+message GetGroupInfoRequest {
+  int64 GroupId = 1;
+}
+message GetGroupInfoResponse {
+  int64 Id = 1;
+  string Name = 2;
+}
+// 获取群信息
+
+message Empty{}
+
+service Group{
+  rpc CreateGroup(CreateGroupRequest) returns(CreateGroupResponse);
+  rpc JoinGroup(JoinGroupRequest) returns(Empty);
+  rpc GetJoinList(GetJoinListRequest) returns(GetJoinListResponse);
+  rpc GetGroupMemberList(GetGroupMemberListRequest) returns(GetGroupMemberListResponse);
+  rpc QuitGroup(QuitGroupRequest) returns(Empty);
+  rpc SetGroupMemberPermission(SetGroupMemberPermissionRequest) returns(Empty);
+  rpc ModifyRemark(ModifyRemarkRequest) returns(Empty);
+  rpc DissolveGroup(DissolveGroupRequest) returns(Empty);
+  rpc GetGroupInfo(GetGroupInfoRequest) returns(GetGroupInfoResponse);
+}

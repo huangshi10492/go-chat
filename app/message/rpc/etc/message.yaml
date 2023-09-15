@@ -1,0 +1,38 @@
+Name: message.rpc
+ListenOn: 0.0.0.0:4004
+Etcd:
+  Hosts:
+    - 192.168.19.133:2379
+  Key: message.rpc
+
+RedisClient:
+  Host: 192.168.19.133:6379
+  Type: node
+  Pass:
+
+GroupRpc:
+  Etcd:
+    Hosts:
+      - 192.168.19.133:2379
+    Key: group.rpc
+
+FriendRpc:
+  Etcd:
+    Hosts:
+      - 192.168.19.133:2379
+    Key: friend.rpc
+
+MailBoxModel:
+  Url: mongodb://192.168.19.133:27017
+  DB: chat
+  Collection: mailbox
+
+MessageModel:
+  Url: mongodb://192.168.19.133:27017
+  DB: chat
+  Collection: message
+
+KqPusherConf:
+  Brokers:
+    - 192.168.19.133:9091
+  Topic: message2websocket

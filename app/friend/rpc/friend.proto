@@ -1,0 +1,87 @@
+syntax = "proto3";
+
+package friend;
+
+option go_package="./friend";
+
+// 发送好友请求
+message SendFriendReq {
+    int64 UserId = 1;
+    int64 FriendId = 2;
+    string Reason = 3;
+    string Remark = 4;
+}
+// 发送好友请求
+
+// 同意好友请求
+message AgreeFriendReq {
+    int64 RequestId=1;
+    int64 UserId=2;
+    string  Remark = 3;
+    bool Agree=4;
+}
+
+// 修改好友备注
+message  ModifyFriendRemarkReq {
+    int64 UserId = 1;
+    int64 FriendId = 2;
+    string Remark = 3;
+}
+// 修改好友备注
+
+// 删除好友
+message DeleteFriendReq {
+    int64 UserId = 1;
+    int64 FriendId = 2;
+}
+// 删除好友
+
+// 获取好友列表
+message GetFriendListReq {
+    int64  UserId = 1;
+}
+message GetFriendListResp {
+    repeated FriendInfo FriendList = 1;
+}
+message  FriendInfo {
+    int64 FriendId = 1;
+    string Name=2;
+    string Remark = 3;
+}
+// 获取好友列表
+
+// 获取好友请求列表
+message GetFriendRequestListReq {
+    int64 UserId = 1;
+}
+message  GetFriendRequestListResp {
+    repeated FriendRequestInfo FriendRequestList = 1;
+}
+message  FriendRequestInfo {
+    int64 RequestId = 1;
+    int64 FriendId = 2;
+    string Name=3;
+    string Reason = 4;
+    int64 Status = 5;
+}
+// 获取好友请求列表
+
+// 检查是否为好友
+message CheckIsFriendRequest {
+    int64 UserId = 1;
+    int64 FriendId = 2;
+}
+message CheckIsFriendResponse {
+    bool IsFriend = 1;
+}
+message Empty{}
+
+service Friend{
+    rpc SendFriend(SendFriendReq) returns (Empty);
+    rpc AgreeFriend(AgreeFriendReq) returns(Empty);
+    rpc ModifyFriendRemark(ModifyFriendRemarkReq) returns(Empty);
+    rpc DeleteFriend(DeleteFriendReq) returns(Empty);
+    rpc GetFriendList(GetFriendListReq) returns(GetFriendListResp);
+    rpc GetFriendRequestList(GetFriendRequestListReq) returns(GetFriendRequestListResp);
+    rpc CheckIsFriend(CheckIsFriendRequest) returns(CheckIsFriendResponse);
+}

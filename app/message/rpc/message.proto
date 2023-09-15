@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package message;
+
+option go_package="./message";
+
+message MessageHandlerRequest{
+  int64 SenderId = 1;
+  int32 SenderType = 2;//1:个人 2:群
+  int64 GroupId=3;
+  int64 ReceiverId = 4;
+  int32 ContentType = 5;//1:文本 2:图片 3:文件
+  string Content = 6;
+  int64 ClientId = 7;
+}
+message ReadHandlerRequest{
+  int64 SenderId = 1;
+  string MessageId = 2;
+  int64 ClientId = 3;
+}
+message WithdrawHandlerRequest{
+  int64 SenderId = 1;
+  int32 SenderType = 2;//1:个人 2:群
+  int64 GroupId=3;
+  int64 ReceiverId = 4;
+  string MessageId = 5;
+  int64 ClientId = 6;
+}
+message Empty{}
+
+service Message{
+  rpc MessageHandler(MessageHandlerRequest) returns (Empty);
+  rpc ReadHandler(ReadHandlerRequest) returns (Empty);
+  rpc WithdrawHandler(WithdrawHandlerRequest) returns (Empty);
+}

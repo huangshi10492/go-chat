@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package user;
+
+option go_package = "./user";
+
+// 用户登录
+message LoginRequest{
+  string Mobile = 1;
+  string Password = 2;
+}
+message LoginResponse{
+  int64 Id = 1;
+  string Mobile = 2;
+}
+// 用户登录
+
+// 用户注册
+message RegisterRequest{
+  string Name = 1;
+  string Mobile = 2;
+  string Password = 3;
+}
+message RegisterResponse{
+  int64 Id = 1;
+  string Name = 2;
+  int64 Gender = 3;
+  string Avatar = 4;
+  string Mobile = 5;
+  string Email = 6;
+}
+// 用户注册
+
+// 用户信息
+message UserInfoRequest {
+  int64 Id = 1;
+}
+message UserInfoResponse {
+  int64 Id = 1;
+  string Name = 2;
+  int64 Gender = 3;
+  string Avatar = 4;
+  string Mobile = 5;
+  string Email = 6;
+}
+// 用户信息
+
+// 批量获取用户信息
+message UsersInfoRequest {
+  repeated int64 Ids = 1;
+}
+message UsersInfoResponse {
+  repeated UserInfoResponse UsersInfo = 1;
+}
+// 批量获取用户信息
+
+service User{
+  rpc Login(LoginRequest) returns(LoginResponse);
+  rpc Register(RegisterRequest) returns(RegisterResponse);
+  rpc UserInfo(UserInfoRequest) returns(UserInfoResponse);
+  rpc UsersInfo(UsersInfoRequest) returns(UsersInfoResponse);
+}

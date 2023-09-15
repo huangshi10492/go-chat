@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package protobuf;
+
+option go_package="./ws_pb";
+
+message WsRequest{
+  int32 Type=1;
+}
+message WsResponse{
+  int32 Type=1;
+  oneof Data{
+    MessageResponse MessageResponse = 2;
+    MailboxResponse MailboxResponse = 3;
+  }
+}
+message MessageResponse{
+  Message Message = 1;
+  Mailbox Mailbox = 2;
+}
+message MailboxResponse{
+  Mailbox Mailbox = 1;
+}
+message Message{
+  string ID = 1;
+  int64 GroupId = 2;
+  int32 MessageType = 3;
+  string MessageData = 4;
+}
+message Mailbox{
+  int64 SenderId = 1;
+  int64 ReceiverId = 2;
+  int64 Seq = 3;
+  int32 ContentType = 4;
+  string Content = 5;
+  int64 CreateAt = 6;
+  int64 ClientId=7;
+}

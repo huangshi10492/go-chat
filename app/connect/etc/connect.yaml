@@ -1,0 +1,17 @@
+Name: Connect
+Host: 0.0.0.0
+Port: 3006
+
+Auth:
+  AccessSecret: "1234567890"
+  AccessExpire: 86400
+
+KqConsumerConf:
+  Name: connect-1
+  Brokers:
+    - 192.168.19.133:9091
+  Group: connect-1
+  Topic: message2websocket
+  Offset: first
+  Consumers: 8
+  Processors: 8

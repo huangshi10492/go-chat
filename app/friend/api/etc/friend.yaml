@@ -1,0 +1,13 @@
+Name: Friend
+Host: 0.0.0.0
+Port: 3002
+
+Auth:
+  AccessSecret: "1234567890"
+  AccessExpire: 86400
+
+FriendRpc:
+  Etcd:
+    Hosts:
+      - 192.168.19.133:2379
+    Key: friend.rpc
